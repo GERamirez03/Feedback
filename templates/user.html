@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+
+{% block title %} User Details {% endblock %} 
+
+{% block content %} 
+
+    <h2>User Details</h2>
+
+    <ul>
+        {% for (key, value) in details.items() %} 
+
+        <li>{{key}}: {{value}}</li>
+
+        {% endfor %}
+
+    </ul>
+
+{% endblock %} 
