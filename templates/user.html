@@ -7,6 +7,7 @@
     <h2>User Details</h2>
 
     <ul>
+
         {% for (key, value) in details.items() %} 
 
         <li>{{key}}: {{value}}</li>
@@ -15,4 +16,27 @@
 
     </ul>
 
+    <h3>Feedback</h3>
+
+    <ul>
+
+        {% for feedback in feedback_list %} 
+
+        <li><a href="/feedback/{{feedback.id}}/update">{{feedback.title}}:</a>
+            <br>{{feedback.content}}
+               <form action="/feedback/{{feedback.id}}/delete" method="post">
+                    <button>Delete Feedback</button>
+               </form>
+        </li>
+
+        {% endfor %} 
+
+    </ul>
+
+    <p><a href="/users/{{username}}/feedback/add">Add Feedback</a></p>
+
+    <form action="/users/{{username}}/delete" method="post">
+        <button>Delete User</button>
+    </form>
+    
 {% endblock %} 

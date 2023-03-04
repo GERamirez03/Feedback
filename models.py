@@ -20,7 +20,9 @@ class User(db.Model):
     __tablename__ = "users"
 
     username = db.Column(db.String(20),
-                         primary_key=True) # iirc primary key implies uniqueness
+                         primary_key=True,
+                         nullable=False,
+                         unique=True) # iirc primary key implies uniqueness
     
     password = db.Column(db.Text,
                          nullable=False)
@@ -34,6 +36,8 @@ class User(db.Model):
     
     last_name = db.Column(db.String(30),
                           nullable=False)
+    
+    feedback = db.relationship('Feedback', backref='user', cascade="all,delete")
     
     def get_details(self):
         """
@@ -73,4 +77,22 @@ class User(db.Model):
             return user
         else:
             return False
+        
+class Feedback(db.Model):
+    """A piece of feedback from one User to another."""
+
+    __tablename__ = "feedback"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    
+    title = db.Column(db.String(100),
+                      nullable=False)
+    
+    content = db.Column(db.Text,
+                        nullable=False)
+    
+    username = db.Column(db.String(20),
+                         db.ForeignKey('users.username'))
     
